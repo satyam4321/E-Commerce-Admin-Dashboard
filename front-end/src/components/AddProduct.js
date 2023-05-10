@@ -28,7 +28,7 @@ const AddProduct = () => {
         const userId = JSON.parse(localStorage.getItem('user'));
         console.log(userId._id);
 
-        let result = await fetch('http://localhost:5000/add-product', {
+        let result = await fetch('https://mern-backend1-6fa9.onrender.com/add-product', {
             method: 'post',
             body: JSON.stringify({ name, price, cateogry, company, userId }),
             headers: {

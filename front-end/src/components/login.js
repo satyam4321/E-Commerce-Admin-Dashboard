@@ -22,7 +22,7 @@ const Login = () => {
 
     const handleLogin = async () => {
 
-        let result = await fetch('http://localhost:5000/login', {
+        let result = await fetch('https://mern-backend1-6fa9.onrender.com/login', {
             method: 'post',
             body: JSON.stringify({ email, password }),
             headers: {

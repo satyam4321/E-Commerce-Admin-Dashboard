@@ -18,7 +18,7 @@ const SelectProduct = () => {
     }, []);
 
     const getProducts = async () => {
-        let result = await fetch('http://localhost:5000/products', {
+        let result = await fetch('https://mern-backend1-6fa9.onrender.com/products', {
 
             headers: {
                 authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`
