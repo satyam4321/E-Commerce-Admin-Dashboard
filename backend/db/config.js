@@ -1,3 +1,3 @@
 const mongoose = require('mongoose');
 
-mongoose.connect("mongodb://0.0.0.0:27017/e-commerce");
+mongoose.connect("mongodb+srv://admin:di3GLJ7QUf6xq3Mz@cluster0.qa1fxfr.mongodb.net/?retryWrites=true&w=majority");
