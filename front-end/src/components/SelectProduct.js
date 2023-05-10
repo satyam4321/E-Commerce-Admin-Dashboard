@@ -32,7 +32,7 @@ const SelectProduct = () => {
 
     const deleteProduct = async (id) => {
         console.log(id);
-        let result = await fetch(`http://localhost:5000/product/${id}`, {
+        let result = await fetch(`https://mern-backend1-6fa9.onrender.com/product/${id}`, {
             method: 'Delete',
             headers: {
                 authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`
@@ -49,7 +49,7 @@ const SelectProduct = () => {
         console.log(event.target.value);
         let key = event.target.value;
         if (key) {
-            let result = await fetch(`http://localhost:5000/search/${key}`, {
+            let result = await fetch(`https://mern-backend1-6fa9.onrender.com/search/${key}`, {
                 headers: {
                     authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`
                 }
