@@ -22,12 +22,12 @@ const salt = bcrypt.genSaltSync(saltRounds);
 
 app.use(express.json());
 
-const corsOptions = {
-    origin: '*',
-    credentials: true,            //access-control-allow-credentials:true
-    optionSuccessStatus: 200,
-}
-app.use(cors(corsOptions));
+// const corsOptions = {
+//     origin: '*',
+//     credentials: true,            //access-control-allow-credentials:true
+//     optionSuccessStatus: 200,
+// }
+app.use(cors());
 
 app.post("/register", async (req, res) => {
     let user = new User(req.body);
