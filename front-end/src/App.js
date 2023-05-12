@@ -35,13 +35,13 @@ function App() {
       <BrowserRouter>
         <Nav />
         <Routes>
-          <Route element = {<PrivateComponent />}>
+          {/* <Route element = {<PrivateComponent />}> */}
             <Route path = "/" element = {<ProductList />} />
             <Route path = "/add" element = {<AddProduct />} />
             <Route path = "/update/:id" element = {<UpdateProduct />} />
             <Route path = "/select" element = {<SelectProduct />} />
             <Route path = "/profile" element = {<Profile />} />
-          </Route> 
+          {/* </Route>  */}
           <Route path = "/home" element = {<Home />} />
           <Route path = "/signup" element = {<SignUp />} />
           <Route path = "/login" element = {<Login />} />
