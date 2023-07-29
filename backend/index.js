@@ -20,6 +20,8 @@ const saltRounds = 10;
 
 const salt = bcrypt.genSaltSync(saltRounds);
 
+var PORT = process.env.PORT || 3000;
+
 app.use(express.json());
 
 var corsOptions = {
@@ -131,4 +133,7 @@ function verifyToken(req, res, next) {
     res.status(403).send({ result: "Please add token with header" });
   }
 }
-app.listen(5000);
+app.listen(PORT, function (err) {
+  if (err) console.log("Error in server setup");
+  console.log("Server listening on Port", PORT);
+});
