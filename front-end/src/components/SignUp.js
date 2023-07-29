@@ -8,6 +8,7 @@ import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
+import BASE_URL from '../config';
 
 const SignUp = () => {
     const [name, setName] = useState("");
@@ -28,7 +29,7 @@ const SignUp = () => {
             alert('Please Enter valid credentials');
             return false;
         }
-        let result = await fetch('https://mern-backend-uqnb.onrender.com/register', {
+        let result = await fetch(`${BASE_URL}/register`, {
             method: 'post',
             body: JSON.stringify({name,email,password}),
             headers: {
@@ -37,6 +38,10 @@ const SignUp = () => {
         });
         result = await result.json();
         console.log(result);
+        if(result == false){
+            alert('Email Already exist please enter another email and try again');
+            return result;
+        }
         localStorage.setItem("user", JSON.stringify(result.result))
         localStorage.setItem("token", JSON.stringify(result.auth))
         navigate('/')

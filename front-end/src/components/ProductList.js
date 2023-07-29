@@ -1,126 +1,119 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
-import { Link } from 'react-router-dom'
-import { get } from 'request';
-import Table from 'react-bootstrap/Table';
+import { Link } from "react-router-dom";
+import { get } from "request";
+import Table from "react-bootstrap/Table";
 
-import Button from 'react-bootstrap/Button';
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import Form from 'react-bootstrap/Form';
-import Col from 'react-bootstrap/Col';
-
+import Button from "react-bootstrap/Button";
+import FloatingLabel from "react-bootstrap/FloatingLabel";
+import Form from "react-bootstrap/Form";
+import Col from "react-bootstrap/Col";
+import BASE_URL from "../config";
 
 const ProductList = () => {
+  const [products, setProducts] = useState([]);
 
-    const [products, setProducts] = useState([]);
+  useEffect(() => {
+    getProducts();
+  }, []);
 
-    useEffect(() => {
-        getProducts();
-    }, []);
+  const getProducts = async () => {
+    let result = await fetch(`${BASE_URL}/products`, {
+      headers: {
+        authorization: `bearer ${JSON.parse(localStorage.getItem("token"))}`,
+      },
+    });
 
-    const getProducts = async () => {
-        let result = await fetch('https://mern-backend-uqnb.onrender.com/products', {
+    result = await result.json();
 
-            headers: {
-                authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`
-            }
-        });
+    setProducts(result);
+  };
 
-        result = await result.json();
+  const deleteProduct = async (id) => {
+    console.log(id);
+    let result = await fetch(`${BASE_URL}/product/${id}`, {
+      method: "Delete",
+      headers: {
+        authorization: `bearer ${JSON.parse(localStorage.getItem("token"))}`,
+      },
+    });
+    result = await result.json();
 
+    if (result) {
+      getProducts();
+      // alert("record is deleted");
+    }
+  };
+  const searchHandle = async (event) => {
+    console.log(event.target.value);
+    let key = event.target.value;
+    if (key) {
+      let result = await fetch(`${BASE_URL}/search/${key}`, {
+        headers: {
+          authorization: `bearer ${JSON.parse(localStorage.getItem("token"))}`,
+        },
+      });
+
+      result = await result.json();
+      if (result) {
         setProducts(result);
+      }
+    } else {
+      getProducts();
     }
+  };
+  console.log("products", products);
+  return (
+    <>
+      <div className="product-list">
+        <h1>Product List</h1>
 
-    const deleteProduct = async (id) => {
-        console.log(id);
-        let result = await fetch(`https://mern-backend-uqnb.onrender.com/product/${id}`, {
-            method: 'Delete',
-            headers: {
-                authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`
-            }
-        });
-        result = await result.json();
+        <Col xs={10}>
+          <FloatingLabel
+            controlId="floatingPassword"
+            label="Search Product"
+            className="SearchBox"
+          >
+            <Form.Control
+              type="text"
+              onChange={searchHandle}
+              placeholder="Search Product"
+              aria-describedby="Search"
+            />
+          </FloatingLabel>
+        </Col>
+      </div>
 
-        if (result) {
-            getProducts();
-            // alert("record is deleted");
-        }
-    }
-    const searchHandle = async (event) => {
-        console.log(event.target.value);
-        let key = event.target.value;
-        if (key) {
-            let result = await fetch(`https://mern-backend-uqnb.onrender.com/search/${key}`, {
-                headers: {
-                    authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`
-                }
-            });
-
-            result = await result.json();
-            if (result) {
-                setProducts(result);
-            }
-        }
-        else {
-            getProducts();
-        }
-
-
-    }
-    console.log("products", products);
-    return (
-        <>
-            <h1 className='product-list'>Product List</h1>
-
-            <Col xs={10}>
-                <FloatingLabel
-                    controlId="floatingPassword"
-                    label="Search Product"
-                    className='SearchBox'
-                >
-                    <Form.Control
-                        type="text"
-                        onChange={searchHandle}
-                        placeholder="Search Product"
-                        aria-describedby="Search"
-                    />
-                </FloatingLabel>
-            </Col>
-
-
-            <div className='scrollit'>
-                <Table striped className='product-list scrollit'>
-                    <thead>
-                        <tr>
-                            <th>S No.</th>
-                            <th>Name</th>
-                            <th>Price</th>
-                            <th>Cateogry</th>
-                            <th>Company</th>
-
-                        </tr>
-                    </thead>
-                    {products.length > 0 ? products.map((item, index) =>
-
-                        <tbody key={item._id}>
-                            <tr>
-                                <td>{index + 1}</td>
-                                <td>{item.name}</td>
-                                <td>${item.price}</td>
-                                <td>{item.cateogry}</td>
-                                <td>{item.company}</td>
-                            </tr>
-                        </tbody>
-                    )
-                        :
-                        <tbody>
-                            <tr><td colSpan={6}><h1 className='NotFound'>No Result Found!</h1></td></tr>
-                        </tbody>
-                    }
-                </Table>
-            </div>
-        </>
-    )
-}
+      <div className="store-table tableFixHead scrollit">
+        <table striped>
+          <thead>
+            <tr>
+              <th>S No.</th>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Cateogry</th>
+              <th>Company</th>
+            </tr>
+          </thead>
+          {products.length > 0 ? (
+            products.map((item, index) => (
+              <tbody key={item._id}>
+                <tr>
+                  <td>{index + 1}</td>
+                  <td>{item.name}</td>
+                  <td>${item.price}</td>
+                  <td>{item.cateogry}</td>
+                  <td>{item.company}</td>
+                </tr>
+              </tbody>
+            ))
+          ) : (
+            <div className="NotFound">Not Found</div>
+          )}
+        </table>
+      </div>
+    </>
+  );
+};
 
 export default ProductList;

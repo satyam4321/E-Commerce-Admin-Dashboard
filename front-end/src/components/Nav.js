@@ -1,61 +1,87 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 
-import { Link, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from "react-router-dom";
 
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
 
 const NavB = () => {
-    const auth = localStorage.getItem('user');
-    const navigate = useNavigate();
+  const auth = localStorage.getItem("user");
+  const navigate = useNavigate();
 
+  const logout = () => {
+    localStorage.clear();
+    navigate("/signup");
+  };
+  return (
+    <>
+      {auth ? (
+        <nav className="main-nav">
+          <div className="logo">
+            <h2>
+              <span>E</span>xclsv
+              <span>S</span>tore
+            </h2>
+          </div>
+          <div className="menu-link">
+            <ul>
+              <li>
+                <NavLink to="/">Search Product</NavLink>
+              </li>
+              <li>
+                <NavLink to="/add">Add Product</NavLink>
+              </li>
+              <li>
+                <NavLink to="/select">Update Product</NavLink>
+              </li>
+              <li>
+                <NavLink to="/profile">Profile</NavLink>
+              </li>
+              <li>
+                <NavLink to="/signup" onClick={logout}>
+                  Logout({JSON.parse(auth).name})
+                </NavLink>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      ) : (
+        // <Navbar bg="dark" variant="dark">
+        <nav className="main-nav2">
+          <div className="logo">
+            <h2>
+              <span>E</span>xclsv
+              <span>S</span>tore
+            </h2>
+          </div>
+          <div className="menu-link2">
+            <ul>
+              {/* <li>
+            <NavLink to="/home">CXB</NavLink>
+            </li> */}
 
-    const logout = () => {
-        localStorage.clear();
-        navigate('/signup')
-    }
-    return (
-        <>
-
-            {auth ?
-                <Navbar bg="dark" variant="dark">
-                
-                    <Container>
-                        <Navbar.Brand href="/home">CXB</Navbar.Brand>
-                        <Nav variant="tabs" className='col-sm-11'>
-                            <Nav.Link href="/">Search Product</Nav.Link>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <Nav.Link href="/add">Add Product</Nav.Link>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <Nav.Link href="/select">Update Product</Nav.Link>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            <Nav.Link href="/profile">Profile</Nav.Link>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <Nav.Link href="/signup" onClick={logout}>Logout({JSON.parse(auth).name})</Nav.Link>
-                        </Nav>
-                    </Container>
-                </Navbar>
-                :
-                <Navbar bg="dark" variant="dark">
-                    <Container>
-                    <Navbar.Brand href="/home">CXB</Navbar.Brand>
-                        <Nav variant="tabs">
-                            <Nav.Link href="/signup" >Sign Up</Nav.Link>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <Nav.Link href="/login">Login</Nav.Link>
-                        </Nav>
-                    </Container>
-                </Navbar>
-            }
-
-
-        </>
-    );
-}
+              <li>
+                <NavLink to="/signup">Sign Up</NavLink>
+              </li>
+              <li>
+                <NavLink to="/login">Login</NavLink>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        // <Container>
+        //   <NavLink to="/home">CXB</NavLink>
+        //   <Nav variant="tabs">
+        //     <NavLink to="/signup">Sign Up</NavLink>
+        //     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        //     <NavLink to="/login">Login</NavLink>
+        //   </Nav>
+        // </Container>
+        // </Navbar>
+      )}
+    </>
+  );
+};
 
 export default NavB;

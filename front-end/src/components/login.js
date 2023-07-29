@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
+import BASE_URL from "../config";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -22,7 +23,7 @@ const Login = () => {
 
     const handleLogin = async () => {
 
-        let result = await fetch('https://mern-backend-uqnb.onrender.com/login', {
+        let result = await fetch(`${BASE_URL}/login`, {
             method: 'post',
             body: JSON.stringify({ email, password }),
             headers: {
