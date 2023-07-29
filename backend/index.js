@@ -24,11 +24,8 @@ var PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-var corsOptions = {
-  origin: "http://localhost:3000",
-};
+app.use(cors());
 
-app.use(cors(corsOptions));
 app.post("/register", async (req, res) => {
   let user = new User(req.body);
   let check = await User.findOne({ email: req.body.email }).select("-password");
