@@ -67,8 +67,8 @@ const Nav = () => {
 
       <div className="logo">
         <h2>
-          <span>T</span>hapa
-          <span>T</span>echnical
+          <span>E</span>xclusive
+          <span>S</span>tore
         </h2>
       </div>
 
