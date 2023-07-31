@@ -329,6 +329,7 @@ figure {
 }
 /* Footer Styles */
 .footer {
+  margin-top: 20vw;
   background-color: black;
   padding: 1px 0;
   color: white;
