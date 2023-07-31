@@ -20,7 +20,7 @@ const saltRounds = 10;
 
 const salt = bcrypt.genSaltSync(saltRounds);
 
-var PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 
@@ -32,10 +32,10 @@ app.post("/register", async (req, res) => {
   if (check != null) res.send(false);
   else {
     let result = await user.save();
-    console.log(result);
+    // console.log(result);
     result = result.toObject();
     delete result.password;
-    Jwt.sign({ result }, jwtKey, { expiresIn: "2h" }, (err, token) => {
+    Jwt.sign({ result }, jwtKey, { expiresIn: "48h" }, (err, token) => {
       if (err) res.send("Something went wrong, Please try after somtime");
       else res.send({ result, auth: token });
     });
@@ -107,10 +107,12 @@ app.get("/search/:key", verifyToken, async (req, res) => {
   let result = await Product.find({
     $or: [
       { name: { $regex: req.params.key } },
-      { company: { $regex: req.params.key } },
-      { cateogry: { $regex: req.params.key } },
+      { name: { $regex: req.params.key.toUpperCase() } },
+      // { company: { $regex: req.params.key } },
+      // { cateogry: { $regex: req.params.key } },
     ],
   });
+  // console.log(res);
   res.send(result);
 });
 

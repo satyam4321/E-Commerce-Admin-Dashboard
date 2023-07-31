@@ -20,9 +20,9 @@ import PrivateComponent from "./components/PrivateComponent";
 
 import Profile from "./components/Profile";
 
-import SelectProduct from "./components/SelectProduct";
-
 import Login from "./components/login";
+
+import SingleProduct from "./components/SingleProuct";
 
 function App() {
   return (
@@ -33,8 +33,8 @@ function App() {
           <Route element={<PrivateComponent />}>
             <Route exact path="/" element={<ProductList />} />
             <Route path="/add" element={<AddProduct />} />
+            <Route path="/movie/:id" element={<SingleProduct />} />
             <Route path="/update/:id" element={<UpdateProduct />} />
-            <Route path="/select" element={<SelectProduct />} />
             <Route path="/profile" element={<Profile />} />
           </Route>
           <Route path="/signup" element={<SignUp />} />
