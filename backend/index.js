@@ -28,6 +28,7 @@ app.use(express.json());
 const corsOptions ={
    origin:'*', 
    credentials:true,            //access-control-allow-credentials:true
+   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
    optionSuccessStatus:200,
 }
 
