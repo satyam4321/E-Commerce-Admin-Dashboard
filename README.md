@@ -1,4 +1,4 @@
-# MERN-E-Commerce-Dashboard
+# E-Commerce Admin Dashboard
 
 ## Introduction
 
